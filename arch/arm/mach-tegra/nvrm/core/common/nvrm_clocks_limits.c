@@ -197,6 +197,11 @@ NvRmPrivClockLimitsInit(NvRmDeviceHandle hRmDevice)
             s_ChipFlavor.pCpuShmoo->pScaledCpuLimits;
         NV_ASSERT(pCpuLimits && (pCpuLimits->HwDeviceId == NV_DEVID_CPU));
 
+        /* Min Max used by NvRmPowerModuleGetMaxFrequency()
+         * and NvRmPrivModuleVscaleReAttach().
+         *
+         * CPU clock scale.
+         */
         s_ClockRangeLimits[NvRmModuleID_Cpu].MinKHz = pCpuLimits->MinKHz;
         s_ClockRangeLimits[NvRmModuleID_Cpu].MaxKHz =
             pCpuLimits->MaxKHzList[s_ChipFlavor.pCpuShmoo->ShmooVmaxIndex];
@@ -224,6 +229,9 @@ NvRmPrivClockLimitsInit(NvRmDeviceHandle hRmDevice)
     }
     s_ClockRangeLimits[NvRmModuleID_Vde].MaxKHz = VdeMaxKHz;
 
+    /*
+     * CpuMaxKHz will affect Mselect for Atrix. Do we want Mselect to have higher KHz?
+     */
     // Set upper clock boundaries for devices on CPU bus (CPU, Mselect,
     // CMC) with combined Absolute/Scaled limits
     CpuMaxKHz = pSKUedLimits->CpuMaxKHz;
