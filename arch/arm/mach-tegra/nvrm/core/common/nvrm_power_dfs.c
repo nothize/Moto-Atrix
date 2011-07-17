@@ -816,6 +816,7 @@ static void DfsParametersInit(NvRmDfs* pDfs)
         pDfs->LowCornerKHz.Domains[i] = pDfs->DfsParameters[i].MinKHz;
         pDfs->HighCornerKHz.Domains[i] = pDfs->DfsParameters[i].MaxKHz;
     }
+    // dfs's min and max corners.
     pDfs->CpuCornersShadow.MinKHz =
         pDfs->LowCornerKHz.Domains[NvRmDfsClockId_Cpu];
     pDfs->CpuCornersShadow.MaxKHz =
